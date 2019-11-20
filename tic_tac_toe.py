@@ -21,7 +21,7 @@ def player_input():
     marker = ""
     # test the input to make sure either x or o    
     while marker != "X" and marker != "O":
-        marker = input("Player 1: Select 'X' or 'O' ... ").upper()
+        marker = input("Player1: Select 'X' or 'O' ... ").upper()
     
     # assign x or o to player 1 or player 2    
     player1 = marker
@@ -29,6 +29,8 @@ def player_input():
         player2 = "O"
     else:
         player2 = "X"
+
+    print("\nPlayer1 is {} and \nPlayer2 is {} \n".format(player1,player2))
 
     # outputs a tuple
     return(player1,player2)
@@ -83,43 +85,121 @@ def choose_first():
 
 
 def space_check(board, pos):
-    if board[pos] == "":
-        return True
-    else:
-        return False
+    return board[pos] == ""
 
 
 def full_board(board):
-    isFull = False
-    for pos in board:
-        if board[pos] != "":
-            isFull = True
-        else:
-            isFull = False
-
-    return isFull
+    for pos in range(1,10):
+        if space_check(board,pos):
+            return False
+        
+    return True
 
 
 def player_choice(board):
+    display_board(board)
     pos = 0
     # Test postion to be 1-9
-    while pos not in range(1,9):
-        pos = input("Plick a postion (1-9) ... ")
+    while pos not in range(1,10) or not space_check(board,pos):
+        pos = int(input("Pick a postion (1-9) ... "))
 
-    # Check to see if the valid position is free
-    if space_check(board,pos):
-        return pos
-
-
+    return pos
 
 
 def replay():
     replay = ""
 
-    while replay != "y" or replay != "n":
+    while replay != "y":
         replay = input("Do you want to play again? [y/n]").lower()
 
-    if replay == "y":
-        return True
-    else:
-        return False
+    return replay == "y"
+
+
+
+
+
+def main():
+    print("\n{0}\nWelcome to Tic Tac Toe!\n{0}\n".format("= "*12))
+
+    while True:
+        board = ["#","","","","","","","","",""]
+        
+        # Ask player which marker they want and decides who to go first
+        p1_marker, p2_marker = player_input()
+
+        current_player = choose_first()
+        print("{} goes first\n".format(current_player))
+
+        # if current_player == "Player1":
+        #     marker == markers[0]
+        # else:
+        #     # Player 2
+        #     marker == markers[1]
+
+        # Ready to play?
+        play_game = input("Are you ready to play? [y/n]\n").lower()
+        if play_game == "y":
+            game = True
+        else:
+            game = False
+
+
+    #### GAME PLAY ####
+        while game:
+
+            if current_player == "Player1":
+
+                # Shows the 3x3 grid
+                display_board(board)
+                pos = player_choice(board)
+                place_marker(board, p1_marker, pos)
+
+                # Check if they won
+                if win_check(board, p1_marker):
+                    display_board(board)
+                    print("PLAYER1 HAS WON!")
+                    game = False
+                else:
+                # Check if its a tie
+                    if full_board(board):
+                        display_board(board)
+                        print("TIE GAME!")
+                        game = False
+                    else:
+                        current_player = "Player2"
+
+            else:
+
+                # Shows the 3x3 grid
+                display_board(board)
+                pos = player_choice(board)
+                place_marker(board, p2_marker, pos)
+
+                # Check if they won
+                if win_check(board, p2_marker):
+                    display_board(board)
+                    print("PLAYER2 HAS WON!")
+                    game = False
+                else:
+                # Check if its a tie
+                    if full_board(board):
+                        display_board(board)
+                        print("TIE GAME!")
+                        game = False
+                    else:
+                        current_player = "Player1"
+
+        if replay():
+            main()
+        else:
+            print("Thank you for playing!")
+            break
+            
+
+        
+    
+    
+
+
+if __name__ == '__main__':
+    main()
