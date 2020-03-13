@@ -1,13 +1,14 @@
 ### IMPORT STATEMENTS AND VARIABLE DECLARATIONS: ###
 
 import random
+import os
 
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
 values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 'Nine':9, 'Ten':10, 'Jack':10,
          'Queen':10, 'King':10, 'Ace':11}
 
-
+playing = True
 
 ### CLASS DEFINTIONS: ###
 
@@ -88,6 +89,7 @@ def take_bet(chips):
         try:
             chips.bet = int(input("\nWhat would you like to bet? "))
         except ValueError:
+            os.system("clear")
             print("Please input an integer... ")
         else:
             if chips.bet > chips.total:
@@ -118,6 +120,7 @@ def hit_or_stand(deck,hand):
             continue
 
 def show_some(player,dealer):
+    os.system("clear")
     print("Dealer has:\n",dealer.hand[0]," and \n<card hidden>\n","="*12,"\n")
     print("You have: ", *player.hand, sep="\n")
     
@@ -150,11 +153,12 @@ def push(player,dealer):
 
 ### THE GAME ###
 def main():
-
-    playing = True
+    global playing
+    # playing = True
 
     while True:
         # Print an opening statement
+        os.system("clear")
         print("--Welcome to BlackJack--")
 
         
