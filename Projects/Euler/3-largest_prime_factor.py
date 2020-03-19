@@ -29,6 +29,7 @@ def is_prime(n) :
     return True
 
 def prime_factors(n) :
+
     # Check base case: if n itself is prime
     if (is_prime(n)) :
         return [n]
@@ -37,7 +38,7 @@ def prime_factors(n) :
     div = 2         # divisor
     new_num = n     #
 
-    while (div * div < n) :
+    while (div**2 <= n) :
         # if divides evenly and is prime, store div and decrease new_num
         if (new_num % div == 0 and is_prime(div)) :
             factors.append(div)
@@ -49,7 +50,7 @@ def prime_factors(n) :
 
 
 def main() :
-    print(prime_factors(600851475143))
+    print(max(prime_factors(600851475143)))
 
 
 
