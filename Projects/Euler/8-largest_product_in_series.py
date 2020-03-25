@@ -14,6 +14,7 @@ def main() :
     digit = list(input())
     i = 0
     highest = 0
+    adjacent = []
 
     for x in digit :
 
@@ -28,6 +29,7 @@ def main() :
 
             if highest < total :
                 highest = total
+                adjacent.append(digit[j])
 
             i += 1
 
