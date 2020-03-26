@@ -35,9 +35,9 @@ def build_grid():
     i = 0
     with open("grid_file.txt") as f:
         for line in f:
-            # line = line.strip().split(" ").append(grid)
-            # i += 1
-            print(line)
+            line = line.strip().split(" ")
+
+            grid.append(line)
 
 
     return grid
@@ -60,7 +60,7 @@ def main():
     # data[1][1] = "a"
     # print(data[1][1])
     grid = build_grid()
-    print(grid)
+    pprint.pprint(grid, width=122)
 
     
 
