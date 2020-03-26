@@ -31,17 +31,14 @@ import random
 import pprint
 
 def build_grid():
-    grid = [[]*20]
+    grid = []
     i = 0
     with open("grid_file.txt") as f:
         for line in f:
-            try:
-                line = line.strip().split(" ").append(grid[i])
-                i += 1
-                print(line)
-    
-            except IndexError:
-                break
+            # line = line.strip().split(" ").append(grid)
+            # i += 1
+            print(line)
+
 
     return grid
 
