@@ -30,8 +30,15 @@ What is the greatest product of four adjacent numbers in the same direction (up,
 import random
 import pprint
 
-def build_grid():
-    grid = [[["00"]*20]*20]
+def build_grid(txt):
+    grid = [[]*20]
+    i = 0
+
+    open with ("grid_file") as f:
+        for line in f:
+            line = line.strip().split(" ").append(grid[i])
+            i += 1
+
     return grid
 
 def random_row(size):
@@ -44,13 +51,15 @@ def print_table(table):
 
 def main():
     # print(build_grid())
-    data = [random_row(20) for i in range(20)]
-    pprint.pprint(data, width=82)
-    print('row 1 sum:', sum(data[0]))
-    print('column 1 sum:', sum(row[0] for row in data))
-    print(data[1][1])
-    data[1][1] = "a"
-    print(data[1][1])
+    # data = [random_row(20) for i in range(20)]
+    # pprint.pprint(data, width=82)
+    # print('row 1 sum:', sum(data[0]))
+    # print('column 1 sum:', sum(row[0] for row in data))
+    # print(data[1][1])
+    # data[1][1] = "a"
+    # print(data[1][1])
+    grid = build_grid()
+    print(grid)
 
     
 
