@@ -30,14 +30,18 @@ What is the greatest product of four adjacent numbers in the same direction (up,
 import random
 import pprint
 
-def build_grid(txt):
+def build_grid():
     grid = [[]*20]
     i = 0
-
-    open with ("grid_file") as f:
+    with open("grid_file.txt") as f:
         for line in f:
-            line = line.strip().split(" ").append(grid[i])
-            i += 1
+            try:
+                line = line.strip().split(" ").append(grid[i])
+                i += 1
+                print(line)
+    
+            except IndexError:
+                break
 
     return grid
 
