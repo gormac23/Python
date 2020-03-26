@@ -27,7 +27,7 @@ The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 
 What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 '''
-import random
+
 import pprint
 
 def build_grid():
@@ -42,27 +42,12 @@ def build_grid():
 
     return grid
 
-def random_row(size):
-    return [random.randrange(10) for i in range(size)] 
-
-def print_table(table):
-    print(' '*colsize + '\t' + '\t'.join('Col {}'.format(i) for i, _ in enumerate(t)))
-    for i, row in enumerate(t):
-        print('Row {}'.format(i).ljust(colsize), '\t'.join(str(v).rjust(colsize) for v in row))
-
 def main():
-    # print(build_grid())
-    # data = [random_row(20) for i in range(20)]
-    # pprint.pprint(data, width=82)
-    # print('row 1 sum:', sum(data[0]))
-    # print('column 1 sum:', sum(row[0] for row in data))
-    # print(data[1][1])
-    # data[1][1] = "a"
-    # print(data[1][1])
+
     grid = build_grid()
     pprint.pprint(grid, width=122)
 
-    
+
 
 
 
