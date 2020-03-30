@@ -29,11 +29,10 @@ What is the greatest product of four adjacent numbers in the same direction (up,
 '''
 
 # grid_file.txt
-def build_grid():
+def build_grid(txt):
     # Build a grid using a list of lists
     grid = []
     i = 0
-    txt = "grid_file.txt"
     # Read in txt file to build grid of numbers
     with open(txt) as f:
         for line in f:
@@ -174,12 +173,12 @@ def diagonal_left_checker(grid):
 
 def main():
 
-    # file = input("\nGrid file name would you like to use: ")
-    # grid = build_grid(file)
-    grid = build_grid()
-    # pprint.pprint(grid, width=122)
+    file = input("\nGrid file name would you like to use: \n*press enter to use problem file*\n*or type in own file*\n")
+    if file == "":
+        file = "grid_file.txt"
+    grid = build_grid(file)
 
-    print("\n20x20 Grid:")
+    print(f"\n{len(grid[0])}x{len(grid)} Grid:\n","="*10, sep='')
     for row in grid:
         print(" ".join(row))
 
@@ -194,7 +193,7 @@ def main():
     if greatest < diagonal_left_checker(grid):
         greatest = diagonal_left_checker(grid)
 
-    print(greatest)
+    print("\nGreatest product of four adjacent numbers in the same direction...",greatest)
 
 
 
