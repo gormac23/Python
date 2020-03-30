@@ -29,10 +29,11 @@ What is the greatest product of four adjacent numbers in the same direction (up,
 '''
 
 # grid_file.txt
-def build_grid(txt):
+def build_grid():
     # Build a grid using a list of lists
     grid = []
     i = 0
+    txt = "grid_file.txt"
     # Read in txt file to build grid of numbers
     with open(txt) as f:
         for line in f:
@@ -65,7 +66,6 @@ def row_checker(row):
             i += 1
 
         except IndexError:
-            print(high)
             return high
 
 
@@ -83,11 +83,9 @@ def column_checker(grid):
                 j = i
                 k = j + 4
                 curr = 1
-                print("curr resest")
 
                 while j < k:
                     curr *= int(grid[j][col])
-                    print(curr)
                     j += 1
 
                 if high < curr:
@@ -105,10 +103,80 @@ def column_checker(grid):
     return high
 
 
+def diagonal_right_checker(grid):
+    high = 0
+    i = 0
+    j = 0
+
+    # Run two loops, first checking all diagonals along row[0]
+    # Then moving onto the next row
+    for x in grid:
+        for y in grid:
+
+            try:
+                row = i
+                col = j
+                end = row + 4
+                curr = 1
+
+                while row < end:
+                    curr *= int(grid[row][col])
+                    row += 1
+                    col += 1
+
+                if high < curr:
+                    high = curr
+
+                j += 1
+
+            except IndexError:
+                break
+
+        i += 1
+        j = 0
+
+    return high
+
+
+def diagonal_left_checker(grid):
+    high = 0
+    i = 19
+    j = 0
+
+    # Same as above code but working in reverse doing the forward diagonals "/" 
+    for x in grid:
+        for y in grid:
+
+            try:
+                row = i
+                col = j
+                end = row - 4
+                curr = 1
+
+                while row > end:
+                    curr *= int(grid[row][col])
+                    row -= 1
+                    col += 1
+
+                if high < curr:
+                    high = curr
+
+                j += 1
+
+            except IndexError:
+                break
+
+        i -= 1
+        j = 0
+
+    return high
+
+
 def main():
 
-    file = input("\nGrid file name would you like to use: ")
-    grid = build_grid(file)
+    # file = input("\nGrid file name would you like to use: ")
+    # grid = build_grid(file)
+    grid = build_grid()
     # pprint.pprint(grid, width=122)
 
     print("\n20x20 Grid:")
@@ -121,6 +189,10 @@ def main():
             greatest = row_checker(row)
     if greatest < column_checker(grid):
             greatest = column_checker(grid)
+    if greatest < diagonal_right_checker(grid):
+        greatest = diagonal_right_checker(grid)
+    if greatest < diagonal_left_checker(grid):
+        greatest = diagonal_left_checker(grid)
 
     print(greatest)
 
