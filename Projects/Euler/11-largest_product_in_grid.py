@@ -28,25 +28,101 @@ The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 '''
 
-import pprint
-
-def build_grid():
+# grid_file.txt
+def build_grid(txt):
+    # Build a grid using a list of lists
     grid = []
     i = 0
-    with open("grid_file.txt") as f:
+    # Read in txt file to build grid of numbers
+    with open(txt) as f:
         for line in f:
             line = line.strip().split(" ")
-
             grid.append(line)
-
 
     return grid
 
+
+# row_checker only takes in a row at a time and compares the value
+def row_checker(row):
+    high = 0
+    i = 0
+
+    # Go through every element in groups of four and compare to the highest stored value in the row
+    for elem in row:
+
+        try:
+            j = i
+            k = j + 4
+            curr = 1
+
+            while j < k:
+                curr *= int(row[j])
+                j += 1
+
+            if high < curr:
+                high = curr
+
+            i += 1
+
+        except IndexError:
+            print(high)
+            return high
+
+
+# column_checker taeks in the full grid and compares each column
+def column_checker(grid):
+    high = 0
+    i = 0
+
+    # Go through every element in groups of four and compare to the highest stored value in the column then...
+    col = 0
+    while col < len(grid[0]):
+        for row in grid:
+
+            try:
+                j = i
+                k = j + 4
+                curr = 1
+                print("curr resest")
+
+                while j < k:
+                    curr *= int(grid[j][col])
+                    print(curr)
+                    j += 1
+
+                if high < curr:
+                    high = curr
+
+                i += 1
+
+            except IndexError:
+                break
+
+        # ... contine back into the for loop for the next column
+        i = 0
+        col += 1
+
+    return high
+
+
 def main():
 
-    grid = build_grid()
-    pprint.pprint(grid, width=122)
+    file = input("\nGrid file name would you like to use: ")
+    grid = build_grid(file)
+    # pprint.pprint(grid, width=122)
 
+    print("\n20x20 Grid:")
+    for row in grid:
+        print(" ".join(row))
+
+    greatest = 0
+    for row in grid:
+        if row_checker(row) > greatest:
+            greatest = row_checker(row)
+    if greatest < column_checker(grid):
+            greatest = column_checker(grid)
+
+    print(greatest)
 
 
 
