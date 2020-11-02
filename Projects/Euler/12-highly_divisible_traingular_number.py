@@ -23,30 +23,30 @@ def triangular_number(n):
     return(n ** 2 + n)//2
 
 
-
-def list_factors(n):
-    # factors = []
-    # for x in range(1,n+1):
-    #     if n % x == 0:
-    #         factors.append(x)
-    factors = [x for x in range(1,n+1) if n % x == 0]
-
+def list_factors(x):
+    # We will store all factors in factors
+    factors = []
+    i = 1
+    while i*i <= x:
+        # Check if i divides x without leaving a remainder
+        if x % i == 0:
+            factors.append(i)
+            # If it does, find the matching factor, i.e. how mnay times it divideds
+            if x//i != i:
+                factors.append(x//i)
+        i += 1
+    # Return the list of factors of x
     return factors
 
+
 def main():
-    # for x in range(1000,2000,2):
-    #     num = triangular_number(x)
-    #     print(list_factors(num))
-    #     if len(list_factors(num)) > 500:
-    #         print(f"{num} has over five hundred divisors!")
-
-    for i in list(map(triangular_number, range(1000,2000,2))):
-        if len(list_factors(i)) > 500:
-            print(list_factors(i))
-    print("N/A")
-
-    print(len(list_factors(list(map(triangular_number, range(1000,2000,2))))))
-
+    # Started at a high range
+    for x in range(1000,40000,1):
+        num = triangular_number(x)
+        if len(list_factors(num)) > 500:
+            print(f"{num} has over five hundred divisors!")
+            # Exit loop when number is found
+            break
 
 
 if __name__ == '__main__':
